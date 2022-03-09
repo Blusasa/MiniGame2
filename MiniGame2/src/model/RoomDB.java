@@ -42,7 +42,7 @@ public class RoomDB {
 	public Room getRoom(int roomID) throws GameException {
 		Optional<Room> room = rooms.stream().filter(r -> r.getRoomID() == roomID).findFirst();
 		
-		if(room.isEmpty()) {
+		if(!room.isPresent()) {
 			throw new GameException("Room doens't exist");
 		}
 		
@@ -51,6 +51,7 @@ public class RoomDB {
 	
 	public void readRooms() throws GameException{
 		//TODO: this method will read in the textfile and add rooms to the list
+		
 	}
 	
 	public void updateRoom(Room rm) throws GameException {

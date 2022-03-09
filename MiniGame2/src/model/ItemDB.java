@@ -26,7 +26,7 @@ public class ItemDB {
 	public Item getItem(int id) throws GameException {
 		Optional<Item> item = items.stream().filter(i -> i.getItemID() == id).findFirst();
 		
-		if(item.isEmpty()){
+		if(!item.isPresent()){
 			throw new GameException("Item doesn't exit");
 		}
 		
