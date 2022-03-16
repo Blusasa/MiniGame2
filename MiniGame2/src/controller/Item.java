@@ -5,22 +5,36 @@ public class Item {
 	private int itemID;
 	private String itemName;
 	
-	Item(){}
+	public String display() {
+		return itemDescription;
+	}
 	
-	public String display() {}
+	public String getItemDescription() {
+		return itemDescription;
+	}
 	
-	public String getItemDescription() {}
+	public int getItemID() {
+		return itemID;
+	}
 	
-	public int getItemID() {}
+	public String getItemName() {
+		return itemName;
+	}
 	
-	public String getItemName() {}
+	public void setItemDescription(String description) {
+		this.itemDescription = description;
+	}
 	
-	public void setItemDescription(String description) {}
+	public void setItemID(int itemID) {
+		this.itemID = itemID;
+	}
 	
-	public void setItemID(int itemID) {}
-	
-	public void setItemName(String itemName) {}
+	public void setItemName(String itemName) {
+		this.itemName = itemName;
+	}
 	
 	@Override
-	public String toString() {}
+	public String toString() {
+		return itemID + ": " + itemName + "\n" + itemDescription;
+	}
 }

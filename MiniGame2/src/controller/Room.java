@@ -1,7 +1,11 @@
 package controller;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
+import gameExceptions.GameException;
 import model.ItemDB;
 import model.RoomDB;
 
@@ -15,31 +19,89 @@ public class Room {
 	private int roomID;
 	private boolean visited;
 	
-	public Room() throws GameException{}
+	public Room() throws GameException{
+		this.exits = new ArrayList<>();
+		this.items = new ArrayList<>();
+		idb = ItemDB.getInstance();
+		rdb = RoomDB.getInstance();
+		this.visited = false;
+	}
 	
-	public Room(int id) throws GameException{}
+	public Room(int id) throws GameException{
+		this.exits = new ArrayList<>();
+		this.items = new ArrayList<>();
+		idb = ItemDB.getInstance();
+		rdb = RoomDB.getInstance();
+		
+		if(rdb.getRoom(id) == null) {
+			throw new GameException("A room with that ID already exists");
+		} else {
+			this.roomID = id;
+		}
+		
+		this.visited = false;
+	}
 	
-	private String buildDescription() {}
+	private String buildDescription() {
+		return this.description;
+	}
 	
-	private String buildItems() throws GameException{}
+	private String buildItems() throws GameException{
+		StringBuilder str = new StringBuilder();
+		items.forEach(i -> {
+			Item item = null;
+			try {
+				item = idb.getItem(i);
+			} catch (GameException e) {
+			}
+			str.append(item.getItemDescription() + ". ");
+		});
+		
+		return str.toString();
+	}
 	
-	public String display() throws GameException{}
+	public String display() throws GameException{
+		StringBuilder roomStr = new StringBuilder();
+		roomStr.append(this.roomID + "\n" + this.name);
+		roomStr.append(buildDescription() + buildItems());
+		roomStr.append("\n" + displayExits());
+		
+		return roomStr.toString();
+	}
 	
-	private String displayExits() {}
+	private String displayExits() {
+		StringBuilder str = new StringBuilder();
+		exits.forEach(e -> str.append(e.getDirection() + "\n"));
+		return str.toString();
+	}
 	
 	public void dropItem(Item item) throws GameException {}
 	
-	public String getDescription() {}
+	public String getDescription() {
+		return this.description;
+	}
 	
-	public List<Exit> getExits(){}
+	public List<Exit> getExits(){
+		return this.exits;
+	}
 	
-	public List<Integer> getItems(){}
+	public List<Integer> getItems(){
+		return this.items;
+	}
 	
-	public String getName() {}
+	public String getName() {
+		return this.name;
+	}
 	
-	public int getRoomID() {}
+	public int getRoomID() {
+		return this.roomID;
+	}
 	
-	public List<Item> getRoomItems() throws GameException{}
+	public List<Item> getRoomItems() throws GameException{
+		items.stream().map(i -> {
+			
+		})
+	}
 	
 	public boolean isVisited() {}
 	
