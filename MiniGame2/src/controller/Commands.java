@@ -8,9 +8,13 @@ public class Commands {
 	private Player player;
 	protected static List<Character> VALID_DIRECTIONS;
 	
-	public Commands() {}
+	public Commands() {
+		player = new Player();
+	}
 	
-	protected String executeCommand(String cmd) {}
+	protected String executeCommand(String cmd) {
+		
+	}
 	
 	private String get(String cmd, Room room) {}
 	

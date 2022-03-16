@@ -1,10 +1,16 @@
 	package view;
 
+import java.util.Scanner;
+
+import controller.GameController;
+
 public class Adventure {
 	private GameController gc;
 	private Scanner in;
 	
-	public Adventure() {}
+	public Adventure() {
+		gc = new GameController();
+	}
 	
 	private String getCommand() {
 		
