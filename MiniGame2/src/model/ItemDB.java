@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.Scanner;
 
 import controller.Item;
@@ -27,13 +26,9 @@ public class ItemDB {
 	}
 	
 	public Item getItem(int id) throws GameException {
-		Optional<Item> item = items.stream().filter(i -> i.getItemID() == id).findFirst();
-		
-		if(item.isEmpty()) {
-			throw new GameException("Item with ID number: " + id + " not found");
-		}
-		
-		return item.get();
+		return items.stream().filter(i -> i.getItemID() == id)
+				.findFirst()
+				.orElseThrow(() -> new GameException("Item with ID number: " + id + " not found"));
 	}
 	
 	public void readItems() throws GameException{
