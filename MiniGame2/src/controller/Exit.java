@@ -1,6 +1,7 @@
 package controller;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import gameExceptions.GameException;
@@ -12,12 +13,7 @@ public class Exit {
 	
 	public Exit() {
 		this.VALID_DIRECTIONS = new ArrayList<>();
-		VALID_DIRECTIONS.add("NORTH");
-		VALID_DIRECTIONS.add("SOUTH");
-		VALID_DIRECTIONS.add("EAST");
-		VALID_DIRECTIONS.add("WEST");
-		VALID_DIRECTIONS.add("UP");
-		VALID_DIRECTIONS.add("DOWN");
+		Collections.addAll(VALID_DIRECTIONS, "N", "S", "E", "W", "U", "D");
 	}
 	
 	public void buildExit(String ex) throws GameException{
@@ -25,10 +21,9 @@ public class Exit {
 		String direction = details[0].toUpperCase();
 		int destination = Integer.parseInt(details[1]);
 		
-		boolean validDir = VALID_DIRECTIONS.stream().anyMatch(d -> direction.equalsIgnoreCase(d));
-		if(!validDir) {
-			throw new GameException("Exit construction not valid");
-		}
+		VALID_DIRECTIONS.stream().filter(d -> direction.equalsIgnoreCase(d))
+		.findFirst()
+		.orElseThrow(() -> new GameException("Exit construction not valid"));
 		
 		this.destination = destination;
 		this.direction = direction;

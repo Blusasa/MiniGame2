@@ -4,9 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.Scanner;
-import java.util.stream.Collectors;
 
 import controller.Exit;
 import controller.Item;
@@ -35,19 +33,10 @@ public class RoomDB {
 	}
 	
 	public List<Item> getItems(int roomID) throws GameException{
-		Optional<Room> roomOpt = rooms.stream().filter(r -> r.getRoomID() == roomID).findFirst();
-		
-		if(!roomOpt.isPresent()) {
-			throw new GameException("Room with ID: " + roomID + " doesn't exist");
-		}
-		
-		Room room = roomOpt.get();
-		
-		if(room.getRoomItems().isEmpty()) {
-			throw new GameException("Room contains no items");
-		}
-		
-		return room.getRoomItems();
+		return rooms.stream().filter(r -> r.getRoomID() == roomID)
+				.findFirst()
+				.orElseThrow(() -> new GameException("Room not found"))
+				.getRoomItems();
 	}
 	
 	public String getMap() {
@@ -56,13 +45,9 @@ public class RoomDB {
 	}
 	
 	public Room getRoom(int roomID) throws GameException {
-		Optional<Room> room = rooms.stream().filter(r -> r.getRoomID() == roomID).findFirst();
-		
-		if(!room.isPresent()) {
-			throw new GameException("Room doens't exist");
-		}
-		
-		return room.get();
+		return rooms.stream().filter(r -> r.getRoomID() == roomID)
+				.findFirst()
+				.orElseThrow(() -> new GameException("Room not found"));
 	}
 	
 	public void readRooms() throws GameException{

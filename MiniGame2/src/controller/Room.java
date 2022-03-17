@@ -33,7 +33,7 @@ public class Room {
 		idb = ItemDB.getInstance();
 		rdb = RoomDB.getInstance();
 		
-		if(rdb.getRoom(id) == null) {
+		if(rdb.getRoom(id) != null) {
 			throw new GameException("A room with that ID already exists");
 		} else {
 			this.roomID = id;
@@ -54,7 +54,7 @@ public class Room {
 				item = idb.getItem(i);
 			} catch (GameException e) {
 			}
-			str.append(item.getItemDescription() + ". ");
+			str.append("There is a " + item.getItemName() + " here\n");
 		});
 		
 		return str.toString();
@@ -62,7 +62,7 @@ public class Room {
 	
 	public String display() throws GameException{
 		StringBuilder roomStr = new StringBuilder();
-		roomStr.append(this.roomID + "\n" + this.name);
+		roomStr.append(this.name + ": " + this.visited + "\n");
 		roomStr.append(buildDescription() + buildItems());
 		roomStr.append("\n" + displayExits());
 		
@@ -75,7 +75,9 @@ public class Room {
 		return str.toString();
 	}
 	
-	public void dropItem(Item item) throws GameException {}
+	public void dropItem(Item item) throws GameException {
+		
+	}
 	
 	public String getDescription() {
 		return this.description;
@@ -98,34 +100,60 @@ public class Room {
 	}
 	
 	public List<Item> getRoomItems() throws GameException{
-		items.stream().map(i -> {
-			
-		})
+		
 	}
 	
-	public boolean isVisited() {}
+	public boolean isVisited() {
+		return this.visited;
+	}
 	
 	public void removeItem(Item item) throws GameException{}
 	
 	public Room retrieveByID(int roomNum) throws GameException{}
 	
-	public void setDescription(String description) throws GameException {}
+	public void setDescription(String description) throws GameException {
+		this.description = description;
+	}
 	
-	public void setExits(List<Exit> exits) {}
+	public void setExits(List<Exit> exits) {
+		this.exits = exits;
+	}
 	
-	public void setItems(List<Integer> items) {}
+	public void setItems(List<Integer> items) {
+		this.items = items;
+	}
 	
-	public void setName(String name) throws GameException{}
+	public void setName(String name) throws GameException{
+		this.name = name;
+	}
 	
-	public void setRoomID(int roomID) {}
+	public void setRoomID(int roomID) {
+		this.roomID = roomID;
+	}
 	
-	public void setVisisted(boolean visited) {}
+	public void setVisisted(boolean visited) {
+		this.visited = visited;
+	}
 	
 	@Override
-	public String toString() {}
+	public String toString() {
+		StringBuilder str = new StringBuilder();
+		str.append(roomID + ": " + visited);
+		str.append("\n" + name + "\n");
+		str.append(description);
+	}
 	
-	public void updateRoom() throws GameException {}
+	public void updateRoom() throws GameException {
+		//TODO: idk
+	}
 	
-	public int validDirection(char cmd) throws GameException{}
+	public int validDirection(char cmd) throws GameException{
+		String cmd2 = Character.toString(cmd);
+		
+		return exits.stream().filter(e -> e.getDirection().equalsIgnoreCase(cmd2))
+				.findFirst()
+				.orElseThrow(() -> new GameException("Invalid Direction! Try again"))
+				.getDestination();
+	}
 
 }
