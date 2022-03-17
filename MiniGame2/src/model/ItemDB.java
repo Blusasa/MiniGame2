@@ -19,7 +19,12 @@ public class ItemDB {
 	
 	public static ItemDB getInstance() throws GameException{
 		if(instance == null) {
-			instance = new ItemDB();
+			try{
+				instance = new ItemDB();
+				instance.readItems();
+			} catch (GameException e) {
+				System.out.println(e.getMessage());
+			}
 		}
 		
 		return instance;
