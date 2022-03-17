@@ -23,9 +23,9 @@ public class RoomDB {
 		if(instance == null) {
 			try {
 				instance = new RoomDB();
+				instance.readRooms();
 			} catch (GameException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				System.out.println(e.getMessage());
 			}
 		}
 		
