@@ -42,6 +42,8 @@ public class Commands {
 			return move(cmdsArr[0]);
 		case 2: case 3: case 4:
 			return itemCommand(cmd);
+		case 0:
+			return "X";
 		}
 	}
 	

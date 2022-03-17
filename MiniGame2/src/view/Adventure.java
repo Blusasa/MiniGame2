@@ -3,6 +3,7 @@
 import java.util.Scanner;
 
 import controller.GameController;
+import gameExceptions.GameException;
 
 public class Adventure {
 	private GameController gc;
@@ -26,13 +27,16 @@ public class Adventure {
 		System.out.println("All commands except any of the whole words above or their first letter. Press X at any time to quit the game");
 		System.out.println("=======================================================================================");
 		
-		gc.displayFirstRoom();
-		String cmd = getCommand();
-		gc.executeCommand(cmd);
+		try {
+			gc.displayFirstRoom();
+		} catch (GameException e) {
+			System.out.println(e.getMessage());
+		}
+		
 	}
 	
 	public static void main(String[] args) {
 		Adventure adventure = new Adventure();
-		adventure.playGame();
+		in = Scanner(System.in);
 	}
 }
