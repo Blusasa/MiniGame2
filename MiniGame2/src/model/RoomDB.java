@@ -33,14 +33,21 @@ public class RoomDB {
 	}
 	
 	public List<Item> getItems(int roomID) throws GameException{
-		return rooms.stream().filter(r -> r.getRoomID() == roomID)
+		Room room = rooms.stream().filter(r -> r.getRoomID() == roomID)
 				.findFirst()
-				.orElseThrow(() -> new GameException("Room not found"))
-				.getRoomItems();
+				.orElseThrow(() -> new GameException("Room " + roomID + " not found"));
+		
+		List<Item> items = new ArrayList<>();
+		for(Integer x: room.getItems()) {
+			Item item = ItemDB.getInstance().getItem(x);
+			items.add(item);
+		}
+		
+		return items;
 	}
 	
 	public String getMap() {
-		//TODO: wtf is a string map
+		//TODO: Returns the String of the complete map
 		return "";
 	}
 	
@@ -51,7 +58,8 @@ public class RoomDB {
 	}
 	
 	public void readRooms() throws GameException{
-		String filePath = "/Rooms.txt";
+
+		String filePath = "src/Rooms.txt";
 		File file = new File(filePath);
 		Scanner in;
 		
@@ -72,17 +80,23 @@ public class RoomDB {
 			room.setRoomID(roomID);
 			room.setDescription(roomDescription);
 			room.setName(roomName);
+			in.nextLine();
 			
-			while(!in.nextLine().contains("--")) {
-				int itemID = Integer.parseInt(in.nextLine());
+			String next = in.nextLine();
+			do {
+				int itemID = Integer.parseInt(next);
 				roomItems.add(itemID);
-			}
+				next = in.nextLine();
+			} while(!next.equalsIgnoreCase("-"));
 			room.setItems(roomItems);
 			
-			while(!in.nextLine().contains("--")) {
+			next = in.nextLine();
+			do{
 				Exit exit = new Exit();
-				exit.buildExit(in.nextLine());
-			}
+				exit.buildExit(next);
+				roomExits.add(exit);
+				next = in.nextLine();
+			} while(!next.equalsIgnoreCase("-"));
 			room.setExits(roomExits);
 			
 			rooms.add(room);
@@ -92,6 +106,6 @@ public class RoomDB {
 	}
 	
 	public void updateRoom(Room rm) throws GameException {
-		//TODO: I have no fucking idea between this and the map
+		//TODO: Updates the room in the current map throws an exception if the room is not found
 	}
 }

@@ -13,9 +13,7 @@ public class GameController {
 	}
 	
 	public String displayFirstRoom() throws GameException{
-		RoomDB rdb = RoomDB.getInstance();
-		Room room = rdb.getRoom(FIRST_ROOM);
-		return room.display();
+		return RoomDB.getInstance().getRoom(FIRST_ROOM).display();
 	}
 	
 	public String executeCommand(String cmd) throws GameException{
@@ -23,6 +21,7 @@ public class GameController {
 	}
 	
 	public String printMap() throws GameException {
-		
+		//TODO: again with the map shit
+		return "";
 	}
 }

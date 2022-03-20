@@ -13,7 +13,7 @@ public class Exit {
 	
 	public Exit() {
 		this.VALID_DIRECTIONS = new ArrayList<>();
-		Collections.addAll(VALID_DIRECTIONS, "N", "S", "E", "W", "U", "D");
+		Collections.addAll(VALID_DIRECTIONS, "NORTH", "SOUTH", "EAST", "WEST", "UP", "DOWN");
 	}
 	
 	public void buildExit(String ex) throws GameException{
