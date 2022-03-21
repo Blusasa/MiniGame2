@@ -23,7 +23,7 @@ public class ItemDB {
 				instance = new ItemDB();
 				instance.readItems();
 			} catch (GameException e) {
-				System.out.println(e.getMessage());
+				throw new GameException(e.getMessage());
 			}
 		}
 		
@@ -37,7 +37,7 @@ public class ItemDB {
 	}
 	
 	public void readItems() throws GameException{
-		String filePath = "/items.txt";
+		String filePath = "src/Items.txt";
 		
 		File file = new File(filePath);
 		Scanner in;
