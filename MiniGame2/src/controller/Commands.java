@@ -39,10 +39,9 @@ public class Commands {
 		case 3:
 			Room room = RoomDB.getInstance().getRoom(player.getCurRoom());
 			return room.display();
-		 case 4:
-			StringBuilder str = new StringBuilder();
-			player.getInventory().forEach(i -> str.append(i.getItemName() + ": " + i.getItemDescription() + "\n"));
-			return str.toString();
+		//backpack command
+		case 4:
+			return player.printInventory();
 		//exit command
 		case 0:
 			return "X";
@@ -109,7 +108,7 @@ public class Commands {
 				.orElseThrow(() -> new GameException("Item not in your inventory"));
 		
 		player.removeItem(item);
-		room.getRoomItems().add(item);
+		room.dropItem(item);
 		return "The " + item.getItemName() + " has been dropped";
 	}
 	

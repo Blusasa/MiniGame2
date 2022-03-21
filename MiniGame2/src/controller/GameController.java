@@ -21,7 +21,6 @@ public class GameController {
 	}
 	
 	public String printMap() throws GameException {
-		//TODO: again with the map shit
-		return "";
+		return RoomDB.getInstance().getMap();
 	}
 }

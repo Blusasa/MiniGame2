@@ -4,26 +4,26 @@ Generic Description
 -
 0
 -
-North 2
-South 3
+North 1
+South 2
 -
 1
 Generic room 2
-Genric description 2
+Generic description 2
 -
 1
 2
 -
-East 1
-West 3
+East 0
+West 2
 -
 2
-Genric room 3
+Generic room 3
 Generic description 3
 -
 3
 4
 -
-Up 1
-Down 2
+Up 0
+Down 1
 -
