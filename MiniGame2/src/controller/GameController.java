@@ -21,7 +21,7 @@ public class GameController {
 	}
 	
 	public String printMap() throws GameException {
-		//TODO: again with the map shit
+		//TODO: Handles the print map command from Adventure Builds a String representation of the current map
 		return "";
 	}
 }
