@@ -67,8 +67,8 @@ public class Room {
 	}
 	
 	public void dropItem(Item item) throws GameException {
-		this.items.add(item.getItemID());
-		updateRoom();
+		items.add(item.getItemID());
+		//updateRoom();
 	}
 	
 	public String getDescription() {
@@ -100,12 +100,13 @@ public class Room {
 	}
 	
 	public void removeItem(Item item) throws GameException{
-		this.items.remove(item.getItemID());
-		this.updateRoom();
+		//itemID is wrapped with Integer so java doesn't default to remove(int index) and instead goes with remove(Obj o) since the list is comprised of Integer objects
+		items.remove((Integer)item.getItemID());
+		//this.updateRoom();
 	}
 	
 	public Room retrieveByID(int roomNum) throws GameException{
-		//TODO: retrieves the requested room from roomdb. Sets its values into the current Room and returns it?
+		//TODO: retrieves the requested room from RoomDB. Sets its values into the current Room and returns it?
 		
 		Room room = RoomDB.getInstance().getRoom(roomNum);
 		this.setDescription(room.getDescription());

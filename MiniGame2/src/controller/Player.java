@@ -24,6 +24,8 @@ public class Player {
 	}
 	
 	protected String printInventory() {
+		if(this.inventory.isEmpty()) return "There are no items in your inventory";
+		
 		StringBuilder inv = new StringBuilder();
 		inventory.forEach(i -> inv.append(i.getItemName() + ": " + i.getItemDescription()));
 		

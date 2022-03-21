@@ -67,6 +67,12 @@ public class Adventure {
 		}
 		RoomDB.getInstance();
 		
+		try {
+			System.out.println(adventure.gc.printMap());
+		} catch (GameException e) {
+			System.out.println(e.getMessage());
+		}
+		
 		//start the gameplay loop
 		adventure.playGame();
 		

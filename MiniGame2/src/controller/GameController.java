@@ -21,7 +21,6 @@ public class GameController {
 	}
 	
 	public String printMap() throws GameException {
-		//TODO: Handles the print map command from Adventure Builds a String representation of the current map
-		return "";
+		return RoomDB.getInstance().getMap();
 	}
 }

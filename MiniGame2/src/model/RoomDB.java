@@ -47,8 +47,9 @@ public class RoomDB {
 	}
 	
 	public String getMap() {
-		//TODO: Returns the String of the complete map
-		return "";
+		StringBuilder str = new StringBuilder();
+		rooms.forEach(r -> str.append(r.getName() + "\n" + r.getDescription() + " -> "));
+		return str.toString();
 	}
 	
 	public Room getRoom(int roomID) throws GameException {
@@ -106,6 +107,16 @@ public class RoomDB {
 	}
 	
 	public void updateRoom(Room rm) throws GameException {
-		//TODO: Updates the room in the current map throws an exception if the room is not found
+		Room rmInList = rooms.stream().filter(r -> r.getRoomID() == rm.getRoomID())
+				.findFirst()
+				.orElseThrow(() -> new GameException("Room to be replaced, doesn't exist"));
+		
+		int inListIndx = -1;
+		for(int i = 0; i < rooms.size(); i++) {
+			if(rooms.get(i).getRoomID() == rmInList.getRoomID()) inListIndx = i;
+		}
+		
+		rooms.remove(rmInList);
+		rooms.add(inListIndx, rm);
 	}
 }
