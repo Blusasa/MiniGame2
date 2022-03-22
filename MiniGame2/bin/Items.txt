@@ -1,15 +1,9 @@
 0
-Item name 0
-Item description 0
+Scythe of Kronos
+A small blade with the phrase "tempus edax rerum" engraved on it.
 1
-Item name 1
-Item description 1
+The Golden Fleece
+Not nearly as shiny as you'd expect a golden item to be, but still it contains immense power.
 2
-Item name 2
-Item description 2
-3
-Item name 3
-Item description 3
-4
-Item name 4
-Item description 4
+Spear of Achilles
+The legendary Achilles himself just left the spear lying around here?

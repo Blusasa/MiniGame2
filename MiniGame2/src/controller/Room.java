@@ -66,7 +66,15 @@ public class Room {
 	
 	private String displayExits() {
 		StringBuilder str = new StringBuilder("You can go ");
-		exits.forEach(e -> str.append(e.getDirection() + " "));
+		exits.forEach(e -> {
+			//checks if the current exit object in the iteration equals the last. If so, changes the append to not include the "or"
+			if(e.equals(exits.get(exits.size() - 1))) {
+				str.append(e.getDirection());
+				//we can return out of the .forEach here because this case only happens when we're at the end of the loop anyways and we want to avoid doing the bottom append
+				return;
+			}
+			str.append(e.getDirection() + " or ");
+		});
 		return str.toString();
 	}
 	
@@ -121,7 +129,16 @@ public class Room {
 	}
 	
 	public void setDescription(String description) throws GameException {
-		this.description = description;
+		String[] temp = description.split("--");
+		StringBuilder str = new StringBuilder();
+		for(int i = 0; i < temp.length; i++) {
+			if(i == temp.length - 1) {
+				str.append(temp[i]);
+				continue;
+			}
+			str.append(temp[i] + "\n");
+		}
+		this.description = str.toString();
 	}
 	
 	public void setExits(List<Exit> exits) {

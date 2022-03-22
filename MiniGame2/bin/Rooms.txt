@@ -1,6 +1,6 @@
 0
-Generic room 1
-Generic Description
+Tartarus Cliffs
+You stand on the edge of the cliffs, overlooking the deep abyss into Tartarus. You can hear the roars from the titans below.--You just crawled out and are going to begin your ascension back to Olympus. The path to the underworld is north. The Entrance to Asphodel is to the South.
 -
 0
 -
@@ -8,21 +8,19 @@ North 1
 South 2
 -
 1
-Generic room 2
-Generic description 2
+Path to the Underworld
+You step forward towards a mountain range with no end in sight. It will be a long, arduous journey but you have waited eons to escape--and enact your vengeance on the new gods. The path forward to Asphodel is to the West. The cliffs of Tartarus are to the East. 
 -
 1
-2
 -
 East 0
 West 2
 -
 2
-Generic room 3
-Generic description 3
+Entrance to Asphodel
+Considering this isn't the usual way you find into the underworld, there isn't much fanfare surrounding the entrance. Just a gate with a--couple of statues of Hades surrounded by tress on all sides. This is where your path begins. The Path to the Underworld is down. Theres a shortcut back to the Cliffs of Tartarus to Up.
 -
-3
-4
+2
 -
 Up 0
 Down 1
