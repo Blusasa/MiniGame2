@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import gameExceptions.GameException;
 import model.RoomDB;
@@ -94,10 +95,23 @@ public class Commands {
 	}
 	
 	private String lookItem(String cmd, Room room) throws GameException {
-		//Stream to either get the item by name or throw exception that it isn't in the room
-		Item item = room.getRoomItems().stream().filter(r -> r.getItemName().equalsIgnoreCase(cmd))
-				.findFirst()
-				.orElseThrow(() -> new GameException(cmd + " isn't in this room"));
+		//First check is to see if the item the players want's to inspect is in the room
+		Optional<Item> roomItem = room.getRoomItems().stream()
+				.filter(r -> r.getItemName().equalsIgnoreCase(cmd))
+				.findFirst();
+		
+		//Second check to see if the player has it in their inventory
+		Optional<Item> playerItem = player.getInventory().stream()
+				.filter(i -> i.getItemName().equalsIgnoreCase(cmd))
+				.findFirst();
+		
+		//Using Optional<T> isPresent, if neither Optional contains a value, than the item isn't available to be inspected.
+		if(!roomItem.isPresent() && !playerItem.isPresent()) {
+			throw new GameException(cmd + " is not in the room or your inventory");
+		}
+		
+		//get item from either the Optional room check or player inv check
+		Item item = roomItem.isPresent() ? roomItem.get() : playerItem.get();
 		
 		return item.getItemDescription();
 	}
