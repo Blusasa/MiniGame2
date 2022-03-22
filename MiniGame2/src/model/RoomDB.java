@@ -48,7 +48,7 @@ public class RoomDB {
 	
 	public String getMap() {
 		StringBuilder str = new StringBuilder();
-		rooms.forEach(r -> str.append(r.getName() + "\n" + r.getDescription() + " -> "));
+		rooms.forEach(r -> str.append(r.getName() + "\n" + r.getDescription() + "\n -> \n"));
 		return str.toString();
 	}
 	

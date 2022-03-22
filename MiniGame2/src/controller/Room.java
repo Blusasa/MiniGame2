@@ -31,6 +31,7 @@ public class Room {
 		idb = ItemDB.getInstance();
 		rdb = RoomDB.getInstance();
 		
+		//Checks for if a room with the ID already exists. Exception shouldn't ever be seen by User but in testing to notify that the txt file should be modified to avoid duplicate roomIDs
 		if(rdb.getRoom(id) != null) {
 			throw new GameException("A room with that ID already exists");
 		} else {
@@ -54,7 +55,10 @@ public class Room {
 	
 	public String display() throws GameException{
 		StringBuilder roomStr = new StringBuilder();
-		roomStr.append(this.name + ": " + this.visited + "\n");
+		
+		//Set strings to represent visited bool in a more "User friendly, game friendly way"
+		String revisit = visited ? "You have been here already": "This area is new";
+		roomStr.append(this.name + ": " + revisit + "\n");
 		roomStr.append(buildDescription() + buildItems());
 		roomStr.append(this.displayExits());
 		return roomStr.toString();
@@ -68,7 +72,7 @@ public class Room {
 	
 	public void dropItem(Item item) throws GameException {
 		items.add(item.getItemID());
-		//updateRoom();
+		updateRoom();
 	}
 	
 	public String getDescription() {
@@ -102,12 +106,10 @@ public class Room {
 	public void removeItem(Item item) throws GameException{
 		//itemID is wrapped with Integer so java doesn't default to remove(int index) and instead goes with remove(Obj o) since the list is comprised of Integer objects
 		items.remove((Integer)item.getItemID());
-		//this.updateRoom();
+		updateRoom();
 	}
 	
-	public Room retrieveByID(int roomNum) throws GameException{
-		//TODO: retrieves the requested room from RoomDB. Sets its values into the current Room and returns it?
-		
+	public Room retrieveByID(int roomNum) throws GameException{	
 		Room room = RoomDB.getInstance().getRoom(roomNum);
 		this.setDescription(room.getDescription());
 		this.setExits(room.getExits());
@@ -156,8 +158,10 @@ public class Room {
 	}
 	
 	public int validDirection(char cmd) throws GameException{
+		//convert to string because exit directions are saved in list as string
 		String cmd2 = Character.toString(cmd).toUpperCase();
 		
+		//exits are saved as whole words(NORTH, SOUTH), so we trim to one letter to check against potential command and search for a match in the rooms exits list
 		return exits.stream().filter(e -> e.getDirection().substring(0,1).equalsIgnoreCase(cmd2))
 				.findFirst()
 				.orElseThrow(() -> new GameException("Invalid Direction! Try again"))
