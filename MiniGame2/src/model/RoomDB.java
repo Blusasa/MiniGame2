@@ -59,7 +59,6 @@ public class RoomDB {
 	}
 	
 	public void readRooms() throws GameException{
-
 		String filePath = "src/Rooms.txt";
 		File file = new File(filePath);
 		Scanner in;
@@ -71,9 +70,11 @@ public class RoomDB {
 		}
 		
 		while(in.hasNext()) {
+			//create a bare Room object to be filled
 			Room room = new Room();
 			List<Integer> roomItems = new ArrayList<>();
 			List<Exit> roomExits = new ArrayList<>();
+			
 			
 			int roomID = Integer.parseInt(in.nextLine());
 			String roomName = in.nextLine();
