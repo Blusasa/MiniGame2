@@ -1,6 +1,7 @@
 package controller;
 
 import gameExceptions.GameException;
+import model.ItemDB;
 import model.RoomDB;
 
 public class GameController {
@@ -21,6 +22,8 @@ public class GameController {
 	}
 	
 	public String printMap() throws GameException {
+		//this method gets called in the main method of the program and the items have to be loaded before the rooms so calling getInstance will load in the items
+		ItemDB.getInstance();
 		return RoomDB.getInstance().getMap();
 	}
 }

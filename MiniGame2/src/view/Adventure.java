@@ -57,16 +57,6 @@ public class Adventure {
 		Scanner input = new Scanner(System.in);
 		adventure.in = input;
 		
-		//load in the Items and rooms IN THAT ORDER ALWAYS, before beginning the game
-		try {
-			ItemDB.getInstance();
-		} catch (GameException e) {
-			System.out.println(e.getMessage());
-			input.close();
-			return;
-		}
-		RoomDB.getInstance();
-		
 		try {
 			System.out.println(adventure.gc.printMap());
 		} catch (GameException e) {
